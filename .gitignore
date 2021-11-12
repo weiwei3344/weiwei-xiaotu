@@ -2,6 +2,8 @@
 node_modules
 /dist
 
+# 上传的时候那些文件不要上传到仓库
+
 
 # local env files
 .env.local

@@ -1,30 +1,44 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div>
+    <!-- 模块A空间使用state数据 -->
+    <p>{{ $store.state.modulesA.userName }}</p>
+    <!-- 模块A空间使用getter数据 -->
+    <p>{{ $store.getters.newName }}</p>
+    <!-- 假设还有一个模块C也是使用同样的名字，那么会执行哪一个模块
+      控制台会报错，但是不影响输出：duplicate getter key: newName
+      调用哪个函数是看哪个函数所在的模块先被引用，就执行哪个模块下的函数
+      <p>{{$store.getters.newName}}</p> -->
+
+    <!-- 模块B空间使用state数据 -->
+    <p>{{ $store.state.modulesB.userName }}</p>
+    <!-- 模块B空间使用getter数据 -->
+    <p>{{ $store.getters["modulesB/newName"] }}</p>
+    <!-- 模块B空间使用mutations数据 -->
+    <button @click="mutationFn">mutationFn</button>
+    <!-- 模块B空间使用actions数据 -->
+    <button @click="actionsFn">actionsFn</button>
   </div>
-  <router-view/>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { useStore } from 'vuex'
+export default {
+  name: 'App',
+  setup () {
+    const store = useStore()
 
-#nav {
-  padding: 30px;
+    const mutationFn = () => {
+      store.commit('modulesB/updateName')
+    }
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+    const actionsFn = () => {
+      store.dispatch('modulesB/updateName')
+    }
 
-    &.router-link-exact-active {
-      color: #42b983;
+    return {
+      mutationFn,
+      actionsFn
     }
   }
 }
-</style>
+</script>
