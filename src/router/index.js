@@ -3,7 +3,6 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // vue2.0 new VueRouter({}) 创建路由实例
 // vue3.0 createRouter({}) 创建路由实例
 const routes = [
-  
 ]
 
 const router = createRouter({

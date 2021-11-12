@@ -1,119 +1,30 @@
+// 引入创建vuex的方法
 import { createStore } from 'vuex'
+// 引入vuex持久化插件
+import createPersistedState from 'vuex-persistedstate'
 
-// vue2.0 创建仓库 new Vuex.Store({})
-// vue3.0 创建仓库 createStore({})
+// 引入三个模块
+import user from './modules/user'
+import cart from './modules/cart'
+import category from './modules/category'
 
-// 创建两个模块
-const modulesA = {
-  state: {
-    userName: 'weiwei'
-  },
-  getters: {
-    newName (state) {
-      const newName_ = state.userName + '!!!'
-      return newName_
-    }
-  }
-}
-
-// const modulesC = {
-//   state: {
-//     userName: 'weiwei123'
-//   },
-
-//   getters: {
-//     newName () {
-//       return 'weiwei123456'
-//     }
-//   }
-// }
-
-const modulesB = {
-  // namespaced表示是否开启命名空间
-  namespaced: true,
-  state: {
-    userName: 'weiwei3344'
-  },
-
-  getters: {
-    newName (state) {
-      const newName_ = state.userName + '!!!'
-      return newName_
-    }
-  },
-
-  mutations: {
-    updateName (state) {
-      const newVal_ = state.userName + '123'
-      return newVal_
-    }
-  },
-
-  actions: {
-    updateName (ctx) {
-      setTimeout(() => {
-        ctx.commit('updateName')
-      }, 1000)
-    }
-  }
-}
-
+// 导出该方法
 export default createStore({
+  // 导入模块
   modules: {
-    // modulesC,
-    modulesA,
-    modulesB
-  }
+    user,
+    cart,
+    category
+  },
+
+  // 启用插件
+  plugins: [
+    createPersistedState({
+      // 配置插件
+      // key表示存储的名字
+      key: 'weiwei-xiaotu-3344',
+      // paths指定要存储的模块
+      paths: ['user', 'cart']
+    })
+  ]
 })
-
-// export default createStore({
-//   state: {
-//     userName: 'weiwei3344'
-//   },
-
-//   getters: {
-//     newName (state) {
-//       return state.userName + '!!!'
-//     }
-//   },
-
-//   mutations: {
-//     updateName (state) {
-//       const userName_ = state.userName = 'weiwei'
-//       return userName_
-//     }
-//   },
-
-//   actions: {
-//     updateName (ctx) {
-//       // 模拟发请求
-//       setTimeout(() => {
-//         ctx.commit('updateName')
-//       }, 1000)
-//     }
-//   }
-// })
-// export default createStore({
-//   // 存放数据
-//   state: {
-//     name: 'weiwei'
-//   },
-
-//   // // 计算属性
-//   // getters:{
-//   //   newVal(){
-//   //     return state.name + '!!!'
-//   //   }
-//   // },
-//   // // 修改方法
-//   // mutations: {
-//   // },
-
-//   // // 取数据
-//   // actions: {
-//   // },
-
-//   // // 模块
-//   // modules: {
-//   // }
-// })
