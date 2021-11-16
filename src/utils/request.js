@@ -13,7 +13,7 @@ import store from '@/store'
 import router from '@/router'
 
 // 导出基准地址，原因：其他地方不是通过axios发请求的地方用上基准地址
-export const baseURL = ''
+export const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net'
 
 // 创建axios实例
 const instance = axios.create({
@@ -32,7 +32,7 @@ instance.interceptors.request.use(
     const { profile } = store.state.user
 
     // 判断是否有token
-    if(profile.token){
+    if (profile.token) {
       // 设置token
       config.headers.Authorization = `Bearer ${profile.token}`
     }
@@ -40,20 +40,20 @@ instance.interceptors.request.use(
   },
   err => {
     // 拦截失败处理的事件：这里直接返回错误对象
-    new Promise.reject(err)
-})
+    return err
+  })
 
 // 响应拦截器
 instance.interceptors.response.use(
-  // res.data：剥离无效数据。将来调用接口的时候拿到了的就是后台数据 
+  // res.data：剥离无效数据。将来调用接口的时候拿到了的就是后台数据
   res => res.date,
-  err =>{
+  err => {
     // 请求失败处理的事件，如果没有什么特殊要求，可以直接返回错误对象
     // 401状态码，就进入到该函数
     // 判断状态码是否是401
     // 为什么要加上err.response，因为可能服务器没有响应
     // response.status拿到状态码
-    if (err.response && err.response.status === 401){
+    if (err.response && err.response.status === 401) {
       // 1、清空无效信息
       // 2、跳转登录页面
       // 3、跳转需要传入当前路由地址给登录页面
@@ -74,7 +74,7 @@ export default (
   url,
   method,
   submitData
-) =>{
+) => {
   // 负责发请求：请求地址，请求方式，提交的数据
   return instance({
     url,
@@ -83,6 +83,6 @@ export default (
     // 2、如果不是一个get请求，则使用data来传递submitData
     // [] 设置一个动态的key，写js表达式，js表达式的执行结果当作key
     // method参数是get，Get，GET。都使用toLowerCase()转换为小写在进行判断
-    [method.toLowerCase() === 'get' ? 'params' : 'data'] : submitData
+    [method.toLowerCase() === 'get' ? 'params' : 'data']: submitData
   })
 }
