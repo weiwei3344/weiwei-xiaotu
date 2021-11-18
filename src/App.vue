@@ -9,21 +9,21 @@
 
     <!-- 测试请求工具 -->
     <!-- 创建一个button，点击后进行发送请求 -->
-    <button @click="fn">测试request请求工具</button>
-
+    <!-- <button @click="fn">测试request请求工具</button> -->
+    <router-view/>
   </div>
 </template>
 
 <script>
-import request from '@/utils/request'
+// import request from '@/utils/request'
 export default {
-  name: 'App',
-  setup () {
-    const fn = () => {
-      request('/member/profile', 'get')
-    }
-    return fn
-  }
+  name: 'App'
+  // setup () {
+  //   const fn = () => {
+  //     request('/member/profile', 'get')
+  //   }
+  //   return fn
+  // }
 }
 </script>
 
