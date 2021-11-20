@@ -19,6 +19,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+@import '../assets/styles/mixins';
 
+.main{
+  .hoverShadow()
+}
 </style>

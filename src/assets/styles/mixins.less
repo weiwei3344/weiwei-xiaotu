@@ -1,0 +1,31 @@
+// 样式混入
+// js模块的
+
+// 都会编译，会浪费资源
+// .mian{
+//   width: 100px;
+//   height: 100px;
+// }
+
+// .mian_1{
+//   .mian()
+// }
+
+// css不会编译函数，所以可以给样式加括号
+// .main(width){
+//   width: width;
+//   height: width;
+// }
+
+// .mian_1{
+//   .mian(100px)
+// }
+
+// 鼠标经过上移动画
+.hoverShadow () {
+  transition: all 0.5s;
+  &:hover {
+    transform: translate3d(0, -3px, 0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  }
+}
