@@ -20,9 +20,9 @@ export default {
 </script>
 
 <style lang="less">
-@import '../assets/styles/mixins';
 
 .main{
-  .hoverShadow()
+  .hoverShadow();
+  color: @weiweiColor;
 }
 </style>
