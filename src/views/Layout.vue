@@ -1,6 +1,6 @@
 <template>
   <!-- 顶部通栏 -->
-  <nav>顶部通栏</nav>
+  <NavBar />
 
   <!-- 头部组件 -->
   <header>头部组件</header>
@@ -14,8 +14,12 @@
 </template>
 
 <script>
+import NavBar from '@/components/app-navbar.vue'
 export default {
-  name: 'Layout'
+  name: 'Layout',
+  components: {
+    NavBar
+  }
 }
 </script>
 
