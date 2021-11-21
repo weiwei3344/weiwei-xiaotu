@@ -1,0 +1,128 @@
+// 项目自己的基本样式
+
+// 盒子的宽度从边框开始计算
+*{
+  box-sizing: border-box;
+}
+
+// html基本样式
+html{
+  height: 100%;
+  font-size: 14px;
+}
+
+// body样式
+body{
+  height: 100%;
+  color: #333;
+  min-width: 1240px;
+  font: 1em/1.4 'Microsoft Yahei', 'PingFang SC', 'Avenir', 'Segoe UI', 'Hiragino Sans GB', 'STHeiti', 'Microsoft Sans Serif', 'WenQuanYi Micro Hei', sans-serif
+}
+
+// 各元素的边框
+ul,
+h1,
+h3,
+h4,
+p,
+dl,
+dd{
+  padding: 0;
+  margin: 0;
+}
+
+// a标签的初始样式
+a{
+  text-decoration: none;
+  color: #333;
+  // 设置元素的整个轮廓样式
+  outline: none;
+}
+
+// 设置i标签样式
+i{
+  // 字体样式显示为正常
+  font-style: normal;
+}
+
+// input的type等于各值的样式
+input[type="text"],
+input[type="search"],
+input[type="password"],
+input[type="checkbox"]{
+  padding: 0;
+  outline: none;
+  border: none;
+  // 用来设计拥有平台原生UI样式的自定义的组件
+  -webkit-appearance: none;
+  // input元素中字体的颜色
+  &::placeholder{
+    color: #ccc;
+  }
+}
+
+// img初始样式
+img{
+  max-width: 100%;
+  max-height: 100%;
+  // 设置元素垂直对齐方式，把此元素放在父元素的中部
+  vertical-align: middle;
+}
+
+// ul的初始样式
+ul{
+  list-style: none;
+}
+
+// index中app的样式
+#app{
+  background: #f5f5f5;
+
+  // 控制用户能否选中文本，none表示元素及其子元素的文本不可选中
+  user-select: none;
+}
+
+// container样式的初始样式
+.container{
+  width: 1240px;
+  margin: 0 auto;
+  position: relative;
+}
+
+// ellipsls 换行的初始样式
+.ellipsls{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+// 换2行的基本样式
+.ellipsls-2{
+  // 在中文文本间，可任意断行
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+// 左浮动
+.fl{
+  float: left;
+}
+
+// 右浮动
+.fr{
+  float: right;
+}
+
+// 清除浮动
+// 浮动三件套 content: '';display: block; clear: both
+.clearfix:after{
+  content: '.';
+  display: block;
+  // 设置元素显示或者隐藏而不改变文档布局
+  visibility: hidden;
+  height: 0;
+  line-height: 0;
+  clear: both;
+}

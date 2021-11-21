@@ -6,7 +6,7 @@
   <header>头部组件</header>
 
   <!-- 中间组件 -->
-  <div class="main">
+  <div class="container">
     <router-view />
   </div>
   <!-- 底部组件 -->
