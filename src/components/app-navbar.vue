@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 export default {
   name: 'AppNavBar',
@@ -30,7 +31,12 @@ export default {
     const store = useStore()
     // 解构出token，判断有没有登录
     // 原版用的是一个计算属性，但是如果使用结构的方法，那么完全没有必要使用结构这个方法
-    const { profile } = store.state.user
+    // 使用vuex中的state需要设置计算属性
+    // const { profile } = store.state.user 这样写数据并不是响应式的数据
+
+    const profile = computed(() => {
+      return store.state.user.profile
+    })
 
     // 导出给组件使用
     return {

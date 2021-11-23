@@ -11,6 +11,9 @@
   </div>
   <!-- 底部组件 -->
   <footer>底部组件</footer>
+
+  <button @click="$store.commit('user/setUserInfo', {token: 3344, nickname: 'weiwei3344'})">登录</button>
+  <button @click="$store.commit('user/setUserInfo', {})">退出</button>
 </template>
 
 <script>
@@ -20,6 +23,12 @@ export default {
   components: {
     NavBar
   }
+
+  // setup () {
+  //   const login = () => {
+
+  //   }
+  // }
 }
 </script>
 
