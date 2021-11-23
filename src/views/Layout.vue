@@ -3,7 +3,8 @@
   <NavBar />
 
   <!-- 头部组件 -->
-  <header>头部组件</header>
+  <Header />
+  <!-- <header>头部组件</header> -->
 
   <!-- 中间组件 -->
   <div class="container">
@@ -18,10 +19,12 @@
 
 <script>
 import NavBar from '@/components/app-navbar.vue'
+import Header from '@/components/app-header.vue'
 export default {
   name: 'Layout',
   components: {
-    NavBar
+    NavBar,
+    Header
   }
 
   // setup () {
