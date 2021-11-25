@@ -1,6 +1,8 @@
 <template>
   <!-- 里面组要内容 -->
-  Home
+  <div class="home">
+    Home
+  </div>
 </template>
 
 <script>
@@ -9,6 +11,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less" scoped>
+// 需要撑开一点
+.home{
+  height: 600px;
+}
 </style>
