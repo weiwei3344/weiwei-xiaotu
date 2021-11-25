@@ -25,12 +25,20 @@ import NavBar from '@/components/app-navbar.vue'
 import Header from '@/components/app-header.vue'
 // 引入尾部状态栏
 import Footer from '@/components/app-footer.vue'
+import { useStore } from 'vuex'
 export default {
   name: 'Layout',
   components: {
     NavBar,
     Header,
     Footer
+  },
+
+  // 在初始化的时候获取分类数据
+  setup () {
+    const store = useStore()
+    // 要特别注意,因为我们已经开启了命名空间,所以调用的时候要写上名字
+    store.dispatch('category/getList')
   }
 
   // setup () {

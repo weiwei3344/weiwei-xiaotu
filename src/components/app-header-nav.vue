@@ -3,35 +3,42 @@
     <li class="home">
       <Router-link to="/">首页</Router-link>
     </li>
-    <li>
-      <a href="#">美食</a>
+    <li v-for="item in list" :key="item.id">
+      <!-- 这里就不用a标签了,因为以后需要带参数,所以需要跳转 -->
+      <Router-link to="/">{{item.name}}</Router-link>
       <!-- 完善子级分类布局 -->
       <div class="layer">
         <ul>
           <!-- 模拟数据循环10次 -->
-          <li v-for="i in 10" :key="i">
-            <a href="#">
-              <img src="https://zhoushugang.gitee.io/erabbit-client-pc-static/uploads/img/category%20(4).png" alt="果干">
-              <p>果干</p>
-            </a>
+          <li v-for="sub in item.children" :key="sub.id">
+            <Router-link to="/">
+              <img :src="sub.picture" alt="">
+              <p>{{sub.name}}</p>
+            </Router-link>
           </li>
         </ul>
       </div>
     </li>
-    <li><a href="#">厨餐</a></li>
-    <li><a href="#">艺术</a></li>
-    <li><a href="#">电器</a></li>
-    <li><a href="#">居家</a></li>
-    <li><a href="#">洗护</a></li>
-    <li><a href="#">孕婴</a></li>
-    <li><a href="#">服装</a></li>
-    <li><a href="#">杂货</a></li>
   </ul>
 </template>
 
 <script>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 export default {
-  name: 'AppHeaderNav'
+  name: 'AppHeaderNav',
+  setup () {
+    // 记得每次使用store都要引入
+    const store = useStore()
+    // 为社么要定义一个计算属性,如果直接写的话,会有大量的重复代码
+    const list = computed(() => {
+      return store.state.category.list
+    })
+
+    return {
+      list
+    }
+  }
 }
 </script>
 
