@@ -87,7 +87,8 @@ export default {
     // 透明度,越小也透明
     opacity: 0;
     box-shadow: 0 0 5px #ccc;
-    transform: all .2s 1s;
+    // transform: all .2s .1s;
+    transition: all .2s .1s;
     ul {
       display: flex;
       flex-wrap: wrap;
