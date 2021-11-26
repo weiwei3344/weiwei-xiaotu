@@ -46,7 +46,7 @@ instance.interceptors.request.use(
 // 响应拦截器
 instance.interceptors.response.use(
   // res.data：剥离无效数据。将来调用接口的时候拿到了的就是后台数据
-  res => res.date,
+  res => res.data,
   err => {
     // 请求失败处理的事件，如果没有什么特殊要求，可以直接返回错误对象
     // 401状态码，就进入到该函数

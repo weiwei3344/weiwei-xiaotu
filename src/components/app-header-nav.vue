@@ -32,6 +32,7 @@ export default {
     const store = useStore()
     // 为社么要定义一个计算属性,如果直接写的话,会有大量的重复代码
     const list = computed(() => {
+      // console.log(list)
       return store.state.category.list
     })
 

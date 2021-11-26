@@ -32,6 +32,7 @@ export default {
   actions: {
     async getList ({ commit }) {
       const { result } = await findAllCategory()
+      // console.log(result)
       // 获取成功后,需要调用setList来修改数据
       commit('setList', result)
     }
