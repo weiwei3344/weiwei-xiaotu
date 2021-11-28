@@ -6,6 +6,9 @@
   <Header />
   <!-- <header>头部组件</header> -->
 
+  <!-- 引入吸顶状态栏 -->
+  <HeaderSticky />
+
   <!-- 中间组件 -->
   <div class="container">
     <router-view />
@@ -25,13 +28,16 @@ import NavBar from '@/components/app-navbar.vue'
 import Header from '@/components/app-header.vue'
 // 引入尾部状态栏
 import Footer from '@/components/app-footer.vue'
+// 引入吸顶导航栏
+import HeaderSticky from '@/components/app-header-sticky.vue'
 import { useStore } from 'vuex'
 export default {
   name: 'Layout',
   components: {
     NavBar,
     Header,
-    Footer
+    Footer,
+    HeaderSticky
   },
 
   // 在初始化的时候获取分类数据
