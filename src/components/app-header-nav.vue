@@ -3,15 +3,16 @@
     <li class="home">
       <Router-link to="/">首页</Router-link>
     </li>
-    <li v-for="item in list" :key="item.id">
+    <!-- 鼠标进入和退出隐藏 -->
+    <li v-for="item in list" :key="item.id" @mouseenter="show(item)" @mouseleave="hide(item)">
       <!-- 这里就不用a标签了,因为以后需要带参数,所以需要跳转 -->
-      <Router-link to="/">{{item.name}}</Router-link>
+      <Router-link :to="`/category/${item.id}`" @click="hide(item)">{{item.name}}</Router-link>
       <!-- 完善子级分类布局 -->
-      <div class="layer">
+      <div class="layer" :class="{open:item.open}">
         <ul>
           <!-- 模拟数据循环10次 -->
           <li v-for="sub in item.children" :key="sub.id">
-            <Router-link to="/">
+            <Router-link :to="`/category/sub/${sub.id}`" @click="hide(item)">
               <img :src="sub.picture" alt="">
               <p>{{sub.name}}</p>
             </Router-link>
@@ -36,8 +37,19 @@ export default {
       return store.state.category.list
     })
 
+    // 控制显示
+    const show = (item) => {
+      store.commit('category/show', item)
+    }
+
+    // 控制隐藏
+    const hide = (item) => {
+      store.commit('category/hide', item)
+    }
     return {
-      list
+      list,
+      show,
+      hide
     }
   }
 }
@@ -67,10 +79,12 @@ export default {
           color: @weiweiColor;
           border-bottom: 1px solid @weiweiColor;
         }
-        > .layer {
-          height: 132px;
-          opacity: 1;
-        }
+
+        // 子分类
+        // > .layer {
+        //   height: 132px;
+        //   opacity: 1;
+        // }
       }
     }
   }
@@ -88,7 +102,7 @@ export default {
     opacity: 0;
     box-shadow: 0 0 5px #ccc;
     // transform: all .2s .1s;
-    transition: all .2s .1s;
+    transition: all .2s;
     ul {
       display: flex;
       flex-wrap: wrap;
@@ -105,12 +119,18 @@ export default {
         p {
           padding-top: 10px;
         }
-        &:hover {
+        &:hover{
           p {
             color: @weiweiColor;
           }
         }
       }
+    }
+
+    // 传入的值为true才进行显示
+    &.open{
+      height: 132px;
+      opacity: 1;
     }
   }
 </style>

@@ -24,8 +24,21 @@ export default {
   // 加载数据后需要修改list的值
   // 里面方法有两个参数,一个传值,然后state中的list改变成传值过来的payload
   mutations: {
+    // 修改获取的数据
     setList (state, payload) {
       state.list = payload
+    },
+
+    // 修改当前一级分类下的open数据为true
+    show (state, item) {
+      const category = state.list.find(category => category.id === item.id)
+      category.open = true
+    },
+
+    // 修当前一级分类下的open数据为flase
+    hide (state, item) {
+      const category = state.list.find(category => category.id === item.id)
+      category.open = false
     }
   },
   // 后台加载数据后需要获取数据
@@ -33,6 +46,12 @@ export default {
     async getList ({ commit }) {
       const { result } = await findAllCategory()
       // console.log(result)
+
+      // 获取数据后给一级分类加上一个控制二级分类显示隐藏的数据open
+      result.forEach(item => {
+        item.open = false
+      })
+
       // 获取成功后,需要调用setList来修改数据
       commit('setList', result)
     }
