@@ -1,6 +1,7 @@
 <template>
-  <div class="app-header-sticky" :class="{show: isShow}">
-    <div class="container" v-show="isShow">
+  <!-- <div class="app-header-sticky":class="{show: isShow}"> -->
+  <div class="app-header-sticky" :class="{show: y >= 78}">
+    <div class="container" v-show="y >= 78">
       <Router-link class="logo" to="/" />
       <AppHeaderNav />
       <div class="right">
@@ -13,7 +14,9 @@
 
 <script>
 import AppHeaderNav from '@/components/app-header-nav.vue'
-import { ref } from 'vue'
+// 导入需要用到的工具函数
+import { useWindowScroll } from '@vueuse/core'
+
 export default {
   name: 'AppHeaderSticky',
   components: {
@@ -21,23 +24,34 @@ export default {
   },
 
   // 使用传统API实现监听
-  setup () {
-    const isShow = ref(false)
-    // 浏览器绑定滚动事件
-    window.onscroll = () => {
-      // 获取文档滚动了多少
-      const scrollTop = document.documentElement.scrollTop
-      console.log(scrollTop)
-      // 文档滚动到78px的时候，显示吸顶，否则隐藏
-      if (scrollTop >= 78) {
-        isShow.value = true
-      } else {
-        isShow.value = false
-      }
-    }
+  // setup () {
+  //   const isShow = ref(false)
+  //   // 浏览器绑定滚动事件
+  //   window.onscroll = () => {
+  //     // 获取文档滚动了多少
+  //     const scrollTop = document.documentElement.scrollTop
+  //     console.log(scrollTop)
+  //     // 文档滚动到78px的时候，显示吸顶，否则隐藏
+  //     if (scrollTop >= 78) {
+  //       isShow.value = true
+  //     } else {
+  //       isShow.value = false
+  //     }
+  //   }
 
+  //   return {
+  //     isShow
+  //   }
+  // }
+
+  // 使用组合API实现吸顶导航
+  setup () {
+    // 获取屏幕滚动y的值
+    const { y } = useWindowScroll()
+
+    // 返回给模板使用
     return {
-      isShow
+      y
     }
   }
 }
