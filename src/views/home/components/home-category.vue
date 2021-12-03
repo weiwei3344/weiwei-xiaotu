@@ -15,7 +15,10 @@
     </ul>
     <!-- 弹层，弹出商品 -->
     <div class="layer">
-      <h4>分类推荐<small>根据您的购买或者浏览记录推荐</small></h4>
+      <!-- 当id为brand的时候就显示品牌否则显示分类 -->
+      <h4 v-if="currCategory">{{currCategory.id === 'brand' ? '品牌' : '分类'}}推荐<small>根据您的购买或者浏览记录推荐</small></h4>
+
+      <!-- 商品数据 -->
       <ul v-if="currCategory && currCategory.goods">
         <li v-for="item in currCategory.goods" :key="item.id">
           <RouterLink to="/">
@@ -28,6 +31,23 @@
           </RouterLink>
         </li>
       </ul>
+
+      <!-- 品牌数据 -->
+      <ul v-if="currCategory && currCategory.brands">
+        <li class="brand" v-for="item in currCategory.brands" :key="item">
+          <RouterLink to="/">
+            <img :src="item.picture" alt="">
+            <div class="info">
+              <p class="place">
+                <i class="iconfont icon-dingwei"></i>
+                {{item.place}}
+              </p>
+              <p class="name ellipsis">{{item.name}}</p>
+              <p class="desc ellipsis-2">{{item.desc}}</p>
+            </div>
+          </RouterLink>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -35,6 +55,7 @@
 <script>
 import { reactive, computed, ref } from 'vue'
 import { useStore } from 'vuex'
+import { findBrand } from '@/api/home'
 export default {
   name: 'HomeCategory',
 
@@ -42,6 +63,8 @@ export default {
   // 2、数据只有9个，但是页面中有10个，所以需要在组件内部定义一个品牌数据
   // 3、根据vuex的分类数据和组件中定义的品牌数据，得到左侧完整的数据(9分类 + 1品牌)数组
   // 4、将上述得到的最终数据进行渲染
+
+  // setup()函数尽量避免使用async awite.因为组件加载要等到setup全部加载完成之后再加载
   setup () {
     // 定义品牌数据
     const brand = reactive({
@@ -52,7 +75,9 @@ export default {
           id: 'brand-children',
           name: '品牌推荐'
         }
-      ]
+      ],
+      // 定义品牌里面的数据
+      brands: []
     })
 
     // 拿到vuex中category中的数据
@@ -72,13 +97,18 @@ export default {
       return list
     })
 
+    // 调用findBrand()函数来将数据填充到brand.brands中
+    findBrand().then(data => {
+      brand.brands = data.result
+    })
+
     // 获取当前分类下的数据
     // 需要定义一个获取当前商品的id，再去数据中遍历寻找，如果找到，就赋值下面创建的数据中，在返回出去给模板使用
     const categoryId = ref(null)
     const currCategory = computed(() => {
       return menuList.value.find(item => item.id === categoryId.value)
     })
-    setTimeout(() => console.log(menuList.value, currCategory.value), 3000)
+    // setTimeout(() => console.log(menuList.value, currCategory.value), 3000)
     return {
       menuList,
       categoryId,
@@ -171,9 +201,12 @@ export default {
             .name{
               font-size: 16px;
               color: #666;
+              width: 180px;
             }
             .desc{
               color:#999;
+              width: 120px;
+              text-overflow: ellipsis;
             }
             .price{
               font-size: 22px;
@@ -181,6 +214,24 @@ export default {
               i{
                 font-size: 16px;
               }
+            }
+          }
+        }
+      }
+      li.brand{
+        height: 180px;
+        a{
+          align-items: flex-start;
+          img{
+            width: 120px;
+            height: 160px;
+          }
+          .info{
+            p{
+              margin-top: 8px;
+            }
+            .place{
+              color: #999;
             }
           }
         }
