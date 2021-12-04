@@ -8,6 +8,6 @@ import request from '@/utils/request'
  * @returns Promise
  */
 
-export const findBrand = (limt = 6) => {
-  return request('/home/brand', 'get', { limt })
+export const findBrand = (limit = 6) => {
+  return request('/home/brand', 'get', { limit })
 }

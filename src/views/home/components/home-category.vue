@@ -1,7 +1,7 @@
 <template>
-  <div class="home-category">
+  <div class="home-category" @mouseleave="categoryId = null">
     <ul class="menu">
-      <li v-for="item in menuList" :key="item.id" @mouseenter="categoryId = item.id">
+      <li :class="{active: categoryId && categoryId === item.id}" v-for="item in menuList" :key="item.id" @mouseenter="categoryId = item.id">
         <RouterLink :to="`/category/${item.id}`">{{item.name}}</RouterLink>
         <!-- 没有数据的时候不显示 -->
         <template v-if="item.children">
@@ -21,7 +21,7 @@
       <!-- 商品数据 -->
       <ul v-if="currCategory && currCategory.goods">
         <li v-for="item in currCategory.goods" :key="item.id">
-          <RouterLink to="/">
+          <RouterLink :to="`/category/sub/${item.id}`">
             <img :src="item.picture" alt="">
             <div class="info">
               <p class="name ellipsis-2">{{item.name}}</p>
@@ -131,7 +131,7 @@ export default {
       padding-left: 40px;
       height: 50px;
       line-height: 50px;
-      &:hover{
+      &:hover, &.active{
         background: @weiweiColor;
       }
       a{
