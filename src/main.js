@@ -13,4 +13,11 @@ import 'normalize.css'
 // 导入项目的基本样式库
 import '@/assets/styles/common.less'
 
-createApp(App).use(store).use(router).mount('#app')
+// 导入自己封装的组件库
+import WeiweiSkeleton from '@/components/library/index'
+
+createApp(App)
+  .use(store)
+  .use(router)
+  .use(WeiweiSkeleton)
+  .mount('#app')
