@@ -2,7 +2,7 @@
   <!-- 需要一个组件来控制轮播图组件的大小 -->
   <div class="home-banner">
     <!-- 将获取的数据传入到其中 -->
-    <WeiweiCarousel :sliders="sliders"/>
+    <WeiweiCarousel auto-play :sliders="sliders"/>
   </div>
 </template>
 
