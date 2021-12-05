@@ -11,6 +11,10 @@
           :to="`/category/sub/${sub.id}`"
           >{{sub.name}}</RouterLink>
         </template>
+        <template v-else>
+          <WeiweiSkeleton width="60px" height="18px" style="margin-right: 5px" bg="rgba(255, 255, 255, 0.2)"/>
+          <WeiweiSkeleton width="50px" height="18px" bg="rgba(255, 255, 255, 0.2)"/>
+        </template>
       </li>
     </ul>
     <!-- 弹层，弹出商品 -->
