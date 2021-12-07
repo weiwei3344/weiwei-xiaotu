@@ -2,10 +2,10 @@
   <div class="home-panel">
     <div class="container">
       <div class="head">
-        <h3>{{}}<small>{{}}</small></h3>
+        <h3>{{title}}<small>{{subTitle}}</small></h3>
         <slot name="right" />
       </div>
-      <solt />
+      <slot />
     </div>
   </div>
 </template>
