@@ -10,9 +10,10 @@
 
 // 导入需要的类
 import WeiweiSkeleton from './weiwei-skeleton'
-
 // 导入轮播图组件
 import WeiweiCarousel from './weiwei-carousel.vue'
+// 导入查看更多组件
+import WeiweiMore from './weiwei-more.vue'
 
 // 导出一个函数
 export default {
@@ -22,5 +23,7 @@ export default {
     app.component(WeiweiSkeleton.name, WeiweiSkeleton)
     // 注册轮播图组件
     app.component(WeiweiCarousel.name, WeiweiCarousel)
+    // 注册查看更多组件
+    app.component(WeiweiMore.name, WeiweiMore)
   }
 }
