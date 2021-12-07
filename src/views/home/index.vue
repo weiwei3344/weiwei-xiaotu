@@ -14,6 +14,7 @@
   <HomeNew />
 
   <!-- 人气推荐 -->
+  <HomeHot />
 </template>
 
 <script>
@@ -23,13 +24,16 @@ import HomeCategory from './components/home-category.vue'
 import HomeBanner from './components/home-banner.vue'
 // 引入新鲜好物组件
 import HomeNew from './components/home-new.vue'
+// 引入人气推荐组件
+import HomeHot from './components/home-hot.vue'
 
 export default {
   name: 'Home',
   components: {
     HomeCategory,
     HomeBanner,
-    HomeNew
+    HomeNew,
+    HomeHot
   }
 }
 </script>

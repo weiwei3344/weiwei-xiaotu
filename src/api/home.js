@@ -20,9 +20,17 @@ export const findBanner = () => {
 }
 
 /**
- * 获取首页新鲜好物的数据
+ * 获取首页新鲜好物数据
  * @returns Promise
  */
 export const findNew = () => {
   return request('/home/new', 'get')
+}
+
+/**
+ * 获取首页人气推荐数据
+ * @returns Promise
+ */
+export const findHot = () => {
+  return request('/home/hot', 'get')
 }
