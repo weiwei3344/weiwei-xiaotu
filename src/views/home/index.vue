@@ -17,14 +17,14 @@
   <HomeHot />
 
   <!-- vue动画 -->
-  <button @click="show = true">显示</button>
+  <!-- <button @click="show = true">显示</button>
   <button @click="show = false">隐藏</button>
   <Transition>
     <div v-if="show" style="width: 100px; background: red"></div>
   </Transition>
   <Transition name="weiwei">
     <div v-if="show" style="width: 100px;"></div>
-  </Transition>
+  </Transition> -->
 </template>
 
 <script>
@@ -36,7 +36,7 @@ import HomeBanner from './components/home-banner.vue'
 import HomeNew from './components/home-new.vue'
 // 引入人气推荐组件
 import HomeHot from './components/home-hot.vue'
-import { ref } from '@vue/reactivity'
+// import { ref } from '@vue/reactivity'
 
 export default {
   name: 'Home',
@@ -45,15 +45,15 @@ export default {
     HomeBanner,
     HomeNew,
     HomeHot
-  },
-
-  setup () {
-    const show = ref(true)
-
-    return {
-      show
-    }
   }
+
+  // setup () {
+  //   const show = ref(true)
+
+  //   return {
+  //     show
+  //   }
+  // }
 }
 </script>
 
@@ -63,33 +63,33 @@ export default {
 
 // vue3 进入动画 v-enter-from v-enter-active v-enter-to
 // vue3 离开动画 v-leave-from v-leave-active v-leave
-.v-enter-from{
-  opacity: 0;
-  height: 0;
-}
+// .v-enter-from{
+//   opacity: 0;
+//   height: 0;
+// }
 
-.v-enter-active{
-  transition: all 2s;
-}
+// .v-enter-active{
+//   transition: all 2s;
+// }
 
-.v-enter-to{
-  opacity: 1;
-  height: 100px;
-}
-.wiewei-enter-from{
-  opacity: 0;
-  height: 0;
-}
+// .v-enter-to{
+//   opacity: 1;
+//   height: 100px;
+// }
+// .wiewei-enter-from{
+//   opacity: 0;
+//   height: 0;
+// }
 
-.weiwei-enter-active{
-  transition: all 2s;
-}
+// .weiwei-enter-active{
+//   transition: all 2s;
+// }
 
-.weiwei-enter-to{
-  opacity: 1;
-  height: 100px;
-  background: pink;
-}
+// .weiwei-enter-to{
+//   opacity: 1;
+//   height: 100px;
+//   background: pink;
+// }
 
 // 若需要多个动画效果，则可以在transition上加name属性，假设为weiwei
 // 则css样式就变化为
