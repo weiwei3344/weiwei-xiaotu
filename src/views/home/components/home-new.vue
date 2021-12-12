@@ -5,7 +5,7 @@
         <WeiweiMore path="/" />
       </template>
       <!-- 面板内容 -->
-      <div style="position: relative; height: 426px">
+      <div ref="target" style="position: relative; height: 426px">
         <Transition name="fade">
           <ul v-if="goods.length" class="goods-list">
             <li v-for="item in goods" :key="item.id">
@@ -28,6 +28,7 @@ import { ref } from 'vue'
 import { findNew } from '@/api/home'
 import HomePanel from './home-panel.vue'
 import HomeSkeleton from './home-skeleton.vue'
+import { useLazyData } from '@/hooks/index'
 
 export default {
   name: 'HomeNew',
@@ -37,13 +38,18 @@ export default {
   },
   setup () {
     // 获取数据
-    const goods = ref([])
-    findNew().then(data => {
-      goods.value = data.result
-    })
+    let goods = ref([])
+    // findNew().then(data => {
+    //   goods.value = data.result
+    // })
+
+    // 使用组件懒加载计数
+    const { target, result } = useLazyData(findNew)
+    goods = result
 
     return {
-      goods
+      goods,
+      target
     }
   }
 }
