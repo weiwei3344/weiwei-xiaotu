@@ -34,7 +34,7 @@ export default {
   },
   setup () {
     // 获取人气推荐数据
-    // let lists = ref([])
+    let lists = ref([])
     // findHot().then(data => {
     //   lists.value = data.result
     // })
@@ -57,10 +57,10 @@ export default {
 
     // 使用组件懒加载计数
     const { target, result } = useLazyData(findHot)
-    // lists = result
+    lists = result
 
     return {
-      lists: result,
+      lists,
       box: target
     }
   }

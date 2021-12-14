@@ -103,6 +103,7 @@ export default {
     box-shadow: 0 0 5px #ccc;
     // transform: all .2s .1s;
     transition: all .2s;
+    z-index: 99999;
     ul {
       display: flex;
       flex-wrap: wrap;
