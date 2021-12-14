@@ -18,9 +18,12 @@ export const useLazyData = (apiFn) => {
   // 2、不同的请求数据的API函数
   const target = ref(null)
   const result = ref([])
+  // stop 停止观察
   const { stop } = useIntersectionObserver(
+    // target 监听目标元素
     target,
     ([{ isIntersecting }], observerElement) => {
+      // inIntersecting 是否进入可视区
       if (isIntersecting) {
         stop()
         // 调用API函数获取数据

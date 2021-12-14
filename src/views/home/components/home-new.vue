@@ -38,17 +38,17 @@ export default {
   },
   setup () {
     // 获取数据
-    let goods = ref([])
+    // let goods = ref([])
     // findNew().then(data => {
     //   goods.value = data.result
     // })
 
     // 使用组件懒加载计数
     const { target, result } = useLazyData(findNew)
-    goods = result
+    // goods = result
 
     return {
-      goods,
+      goods: result,
       target
     }
   }
