@@ -31,6 +31,11 @@ export const useLazyData = (apiFn) => {
           result.value = data.result
         })
       }
+    },
+    // 经过测试，在组件页面很大的时候，组件的渲染需要移动很多位置，这样对于用户体验是很不友好的，所以我们设置当组件与可视区相交的时候立即进行渲染
+    {
+      // 设置的数值为什么时候进行渲染1
+      threshold: 0
     }
   )
 

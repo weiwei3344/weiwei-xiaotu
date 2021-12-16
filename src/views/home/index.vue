@@ -19,6 +19,9 @@
   <!-- 热门品牌 -->
   <HomeBrand />
 
+  <!-- 商品区域 -->
+  <HomeProduct />
+
   <!-- vue动画 -->
   <!-- <button @click="show = true">显示</button>
   <button @click="show = false">隐藏</button>
@@ -42,6 +45,8 @@ import HomeHot from './components/home-hot.vue'
 // import { ref } from '@vue/reactivity'
 // 引入热门品牌组件
 import HomeBrand from './components/home-brand.vue'
+// 引入商品区域组件
+import HomeProduct from './components/home-product.vue'
 
 export default {
   name: 'Home',
@@ -50,7 +55,8 @@ export default {
     HomeBanner,
     HomeNew,
     HomeHot,
-    HomeBrand
+    HomeBrand,
+    HomeProduct
   }
 
   // setup () {
