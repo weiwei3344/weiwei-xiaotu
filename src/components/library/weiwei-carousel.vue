@@ -84,6 +84,7 @@ export default {
       // 有定时器把定时器清除
       if (timer) {
         clearInterval(timer)
+        timer = null
       }
     }
     // 轮播开始函数

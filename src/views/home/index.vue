@@ -22,6 +22,9 @@
   <!-- 商品区域 -->
   <HomeProduct />
 
+  <!-- 最新专题 -->
+  <HomeSpecial />
+
   <!-- vue动画 -->
   <!-- <button @click="show = true">显示</button>
   <button @click="show = false">隐藏</button>
@@ -47,6 +50,8 @@ import HomeHot from './components/home-hot.vue'
 import HomeBrand from './components/home-brand.vue'
 // 引入商品区域组件
 import HomeProduct from './components/home-product.vue'
+// 引入最新专题组件
+import HomeSpecial from './components/home-special.vue'
 
 export default {
   name: 'Home',
@@ -56,7 +61,8 @@ export default {
     HomeNew,
     HomeHot,
     HomeBrand,
-    HomeProduct
+    HomeProduct,
+    HomeSpecial
   }
 
   // setup () {
