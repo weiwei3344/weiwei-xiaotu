@@ -12,8 +12,10 @@
 export default {
   name: 'HomeSkeleton',
   props: {
-    type: String,
-    default: () => { '#fff' }
+    bg: {
+      type: String,
+      default: () => { '#fff' }
+    }
   }
 }
 </script>

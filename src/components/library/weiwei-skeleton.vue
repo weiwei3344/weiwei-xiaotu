@@ -14,7 +14,7 @@ export default {
   props: {
     bg: {
       type: String,
-      default: '#eee'
+      default: '#eeeeee'
     },
     width: {
       type: String,

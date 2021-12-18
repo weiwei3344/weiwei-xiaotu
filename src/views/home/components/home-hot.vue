@@ -11,7 +11,7 @@
             </RouterLink>
           </li>
         </ul>
-        <HomeSkeleton v-else />
+        <HomeSkeleton bg v-else />
       </Transition>
     </div>
   </HomePanel>
