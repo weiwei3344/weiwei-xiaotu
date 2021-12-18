@@ -14,6 +14,8 @@ import WeiweiSkeleton from './weiwei-skeleton'
 import WeiweiCarousel from './weiwei-carousel.vue'
 // 导入查看更多组件
 import WeiweiMore from './weiwei-more.vue'
+// 导入默认图片
+import defaultImg from '@/assets/images/200.png'
 
 // 导出一个函数
 export default {
@@ -37,13 +39,13 @@ export default {
 const defineDirective = (app) => {
   // 首先要定义图片懒加载指令， 这里定义为v-lazy
   // 这里使用图片懒加载的原理：先存储图片地址不能在scr上显示，当图片进入可视区，将存储的图片地址设置给图片元素
-  app.directive('lazy', {
+  app.directive('lazyload', {
     // 这里需要知道DOM元素是否创建好
     // vue 2.0 监听指令的DOM是否创建好  ，使用钩子函数：inserted
     // vue 3.0 的指令拥有的钩子函数和组件一样，使用指令的DOM是否创建好，钩子函数：mounted
 
-    // 有两个元素，一个是观察传进来的元素
-    mouted (el, binding) {
+    // 有两个元素，一个是观察传进来的元素，另外一个是传入进来的值
+    mounted (el, binding) {
       // 创建一个观察对象，来观察当前使用指令的元素
       const observer = new IntersectionObserver(([{ isIntersecting }]) => {
         // 判断是否进入可视区
@@ -52,10 +54,14 @@ const defineDirective = (app) => {
           // console.log('进入可视区')
           // 停止观察
           observer.unobserve(el)
+          el.onerror = () => {
+            el.src = defaultImg
+          }
+          el.src = binding.value
         }
       }, {
         // 设置为一进入可视区就直接加载
-        threshold: 0
+        threshold: 0.01
       })
       observer.observe(el)
     }
