@@ -1,43 +1,17 @@
 <template>
   <div class="weiwei-bread">
-    <div class="weiwei-bread-item">
-      <RouterLink to="/">
-        首页
-      </RouterLink>
-    </div>
-    <i class="iconfont icon-angle-right"></i>
-    <div v-if="parentName" class="weiwei-bread-item">
-      <RouterLink v-if="parentPath" :to="parentPath">
-        {{parentName}}
-      </RouterLink>
-      <span v-else>{{parentName}}</span>
-    </div>
-    <i v-if="parentName" class="iconfont icon-angle-right"></i>
-    <div class="weiwei-bread-item">
-      <span><slot /></span>
-    </div>
+    <slot />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'WeiweiBread',
-  props: {
-    // 父级类目路径
-    parentPath: {
-      type: [String, Object],
-      default: '/'
-    },
-    // 父级类目名称
-    parentName: {
-      type: String,
-      default: ''
-    }
-  }
+  name: 'WeiweiBread'
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
+// 去除scoped属性,就可以让让样式作用于全局
 .weiwei-bread{
   display: flex;
   padding: 25px 10px;

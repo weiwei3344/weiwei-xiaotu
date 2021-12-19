@@ -2,7 +2,11 @@
   <div class="top-category">
     <div class="container">
       <!-- 面包屑 -->
-      <WeiweiBread parentName="笔记本" parentPath="/category/1000">联想笔记本</WeiweiBread>
+      <WeiweiBread >
+        <WeiweiBreadItem to="/">首页</WeiweiBreadItem>
+        <WeiweiBreadItem to="category/100">电脑</WeiweiBreadItem>
+        <WeiweiBreadItem>笔记本电脑</WeiweiBreadItem>
+      </WeiweiBread>
       <!-- 轮播图 -->
       <!-- 全部分类 -->
       <!-- 各个分类的推荐商品 -->
