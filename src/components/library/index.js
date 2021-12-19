@@ -14,6 +14,10 @@ import WeiweiSkeleton from './weiwei-skeleton'
 import WeiweiCarousel from './weiwei-carousel.vue'
 // 导入查看更多组件
 import WeiweiMore from './weiwei-more.vue'
+// 导入面包屑组件
+import WeiweiBread from './weiwei-bread.vue'
+// 导入面包屑第二级组件
+import WeiweiBreadItem from './weiwei-bread-item.vue'
 // 导入默认图片
 import defaultImg from '@/assets/images/200.png'
 
@@ -29,6 +33,10 @@ export default {
     app.component(WeiweiCarousel.name, WeiweiCarousel)
     // 注册查看更多组件
     app.component(WeiweiMore.name, WeiweiMore)
+    // 注册面包屑组件
+    app.component(WeiweiBread.name, WeiweiBread)
+    // 注册面包屑二级组件
+    app.component(WeiweiBreadItem.name, WeiweiBreadItem)
 
     // 定义指令
     defineDirective(app)
