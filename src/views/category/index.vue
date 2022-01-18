@@ -21,6 +21,16 @@
         </ul>
       </div>
       <!-- 各个分类的推荐商品 -->
+      <div class="ref-goods">
+        <div class="head">
+            <h3>- 海鲜 -</h3>
+            <p class="tag">温暖柔软，品质之选</p>
+            <WeiweiMore />
+        </div>
+        <div class="body">
+            <GoodItem v-for="i in 5" :key="i" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -30,9 +40,13 @@ import { findBanner } from '@/api/home'
 import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
+import GoodItem from './components/good-item.vue'
 
 export default {
   name: 'TopCategory',
+  components: {
+    GoodItem
+  },
   // 做两件事。1、调用接口请求轮播图的数据。2、在vuex中获取全部分类的数据
   setup () {
     // 请求轮播图数据
@@ -96,6 +110,31 @@ export default {
           }
         }
       }
+    }
+  }
+  .ref-goods {
+    background-color: #fff;
+    margin-top: 20px;
+    position: relative;
+    .head {
+      .weiwei-more {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+      .tag {
+        text-align: center;
+        color: #999;
+        font-size: 20px;
+        position: relative;
+        top: -20px;
+      }
+    }
+    .body {
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      padding: 0 65px 30px;
     }
   }
 }
