@@ -21,14 +21,14 @@
         </ul>
       </div>
       <!-- 各个分类的推荐商品 -->
-      <div class="ref-goods">
+      <div class="ref-goods" v-for="sub in subList" :key="sub.id">
         <div class="head">
-            <h3>- 海鲜 -</h3>
+            <h3>- {{sub.name}} -</h3>
             <p class="tag">温暖柔软，品质之选</p>
-            <WeiweiMore />
+            <WeiweiMore :path="`/category/sub/${sub.id}`" />
         </div>
         <div class="body">
-            <GoodItem v-for="i in 5" :key="i" />
+            <GoodItem v-for="goods in sub.goods" :key="goods"  :goods="goods" />
         </div>
       </div>
     </div>
@@ -37,10 +37,11 @@
 
 <script>
 import { findBanner } from '@/api/home'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import GoodItem from './components/good-item.vue'
+import { findTopCategory } from '@/api/category'
 
 export default {
   name: 'TopCategory',
@@ -61,15 +62,36 @@ export default {
     const topCategory = computed(() => {
       console.log(store.state.category.list)
       console.log(route.params.id)
-      return store.state.category.list.find(item => {
+      // return store.state.category.list.find(item => {
+      //   // eslint-disable-next-line no-return-assign
+      //   return item.id = route.params.id
+      // })
+      let cate = {}
+      const item = store.state.category.list.find(item => {
         // eslint-disable-next-line no-return-assign
         return item.id = route.params.id
       })
+      if (item) cate = item
+      return cate
     })
+
+    // 获取各个子类目下推荐商品
+    const subList = ref([])
+    const getSubList = () => {
+      findTopCategory(route.params.id).then(data => {
+        subList.value = data.result.children
+      })
+    }
+
+    // 监听路由中id发生改变的时候，重新发送请求.并且一进来就触发监听事件
+    watch(() => route.params.id, (newVal) => {
+      newVal && getSubList()
+    }, { immediate: true })
 
     return {
       sliders,
-      topCategory
+      topCategory,
+      subList
     }
   }
 }
