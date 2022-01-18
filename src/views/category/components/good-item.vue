@@ -1,6 +1,6 @@
 <template>
   <!-- 路由跳转 -->
-  <RouterLink to="/" class="goods-item">
+  <RouterLink :to="`/product/${goods.id}`" class="goods-item">
     <img :src="goods.picture" alt="" />
     <p class="name ellipsis">{{goods.name}}</p>
     <p class="desc ellipsis">{{goods.desc}}</p>

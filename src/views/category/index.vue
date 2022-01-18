@@ -4,7 +4,9 @@
       <!-- 面包屑 -->
       <WeiweiBread >
         <WeiweiBreadItem to="/">首页</WeiweiBreadItem>
-        <WeiweiBreadItem v-if="topCategory">{{topCategory.name}}</WeiweiBreadItem>
+        <transition name="fade-right" mode="out-in">
+          <WeiweiBreadItem v-if="topCategory" :key="topCategory.id">{{topCategory.name}}</WeiweiBreadItem>
+        </transition>
       </WeiweiBread>
       <!-- 轮播图 -->
       <WeiweiCarousel :sliders=sliders style="height:500px" />
@@ -158,6 +160,25 @@ export default {
       flex-wrap: wrap;
       padding: 0 65px 30px;
     }
+  }
+}
+.fade-right {
+  // 面包屑动画
+  // 进入：右侧 20px的位移 透明度为0 做过度.5s 本来位置 没有位移 透明度为1
+  // 离开：本来位置 没有位移 透明度为1 做过度.5s 右侧 20px位移 透明度0
+  &-enter-to,
+  &-leave-from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  &-enter-active,
+  &-leave-active {
+    transition: all 0.5s;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateX(20px);
   }
 }
 </style>
