@@ -141,3 +141,24 @@ ul{
     }
   }
 }
+
+// 面包屑动画效果
+.fade-right {
+  // 面包屑动画
+  // 进入：右侧 20px的位移 透明度为0 做过度.5s 本来位置 没有位移 透明度为1
+  // 离开：本来位置 没有位移 透明度为1 做过度.5s 右侧 20px位移 透明度0
+  &-enter-to,
+  &-leave-from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  &-enter-active,
+  &-leave-active {
+    transition: all 0.5s;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}

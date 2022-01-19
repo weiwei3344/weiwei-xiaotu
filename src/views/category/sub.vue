@@ -1,10 +1,14 @@
 <template>
-SubCategory
+  <SubBread />
 </template>
 
 <script>
+import SubBread from './components/sub-bread.vue'
 export default {
-  name: 'SubCategory'
+  name: 'SubCategory',
+  components: {
+    SubBread
+  }
 }
 </script>
 

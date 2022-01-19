@@ -24,7 +24,7 @@ export default {
     const category = computed(() => {
       const cate = {}
       // 完成获取数据的逻辑
-      store.state.category.list.foreach(top => {
+      store.state.category.list.forEach(top => {
         if (top.children) {
           const sub = top.children.find(sub => sub.id === route.params.id)
           if (sub) {
