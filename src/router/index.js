@@ -39,7 +39,15 @@ const routes = [
 const router = createRouter({
   // 使用hash的路由模式
   history: createWebHashHistory(),
-  routes
+  routes,
+  // scrollBehavior
+  // 当切换到新路由时，想要页面滚到顶部，或者是保持原先的滚动位置，就像重新加载页面那样。
+  scrollBehavior () {
+    return {
+      left: 0,
+      top: 0
+    }
+  }
 })
 
 export default router

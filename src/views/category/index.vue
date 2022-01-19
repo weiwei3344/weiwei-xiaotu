@@ -87,7 +87,9 @@ export default {
 
     // 监听路由中id发生改变的时候，重新发送请求.并且一进来就触发监听事件
     watch(() => route.params.id, (newVal) => {
-      newVal && getSubList()
+      // newVal && getSubList()
+      // 切换到二级类目路由的时候也有ID，但是也触发了watch导致发送了请求，需要处理。
+      if (newVal && route.path === `/category/${newVal}`) getSubList()
     }, { immediate: true })
 
     return {

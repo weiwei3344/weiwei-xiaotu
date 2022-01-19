@@ -4,7 +4,8 @@
       <Router-link to="/">首页</Router-link>
     </li>
     <!-- 鼠标进入和退出隐藏 -->
-    <li v-for="item in list" :key="item.id" @mouseenter="show(item)" @mouseleave="hide(item)">
+    <!-- 滚动到顶部，鼠标有时候会进入一级类目上，触发弹出二级类目。改成在一级类目上移动弹出二级类目 -->
+    <li v-for="item in list" :key="item.id" @mousemove="show(item)" @mouseleave="hide(item)">
       <!-- 这里就不用a标签了,因为以后需要带参数,所以需要跳转 -->
       <Router-link :to="`/category/${item.id}`" @click="hide(item)">{{item.name}}</Router-link>
       <!-- 完善子级分类布局 -->
