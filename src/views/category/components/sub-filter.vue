@@ -16,11 +16,7 @@
   </div>
   <!-- 筛选区股价屏效 -->
   <div v-else class="sub-filter">
-    <WeiweiSkeleton class="item" width="800px" height="40px"/>
-    <WeiweiSkeleton class="item" width="800px" height="40px"/>
-    <WeiweiSkeleton class="item" width="800px" height="40px"/>
-    <WeiweiSkeleton class="item" width="800px" height="40px"/>
-    <WeiweiSkeleton class="item" width="800px" height="40px"/>
+    <WeiweiSkeleton class="item" width="800px" height="40px" v-for="i in 5" :key="i"/>
   </div>
 </template>
 

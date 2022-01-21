@@ -18,6 +18,8 @@ import WeiweiMore from './weiwei-more.vue'
 import WeiweiBread from './weiwei-bread.vue'
 // 导入面包屑第二级组件
 import WeiweiBreadItem from './weiwei-bread-item.vue'
+// 导入复选框组件
+import WeiweiCheckbox from './weiwei-checkbox.vue'
 // 导入默认图片
 import defaultImg from '@/assets/images/200.png'
 
@@ -37,6 +39,8 @@ export default {
     app.component(WeiweiBread.name, WeiweiBread)
     // 注册面包屑二级组件
     app.component(WeiweiBreadItem.name, WeiweiBreadItem)
+    // 注册复选框组件
+    app.component(WeiweiCheckbox.name, WeiweiCheckbox)
 
     // 定义指令
     defineDirective(app)
