@@ -5,20 +5,25 @@
   <!-- 筛选区 -->
   <SubFilter />
 
-  <!-- 测试复选框组件 -->
-  <WeiweiCheckbox v-model="isAllChecked">全选</WeiweiCheckbox>{{isAllChecked}}
+  <!-- 商品面板 ====>(排序组件 + 商品列表) -->
+  <div class="goods-list">
+    <SubSort />
+  </div>
+
 </template>
 
 <script>
 import SubBread from './components/sub-bread.vue'
 import SubFilter from './components/sub-filter.vue'
+import SubSort from './components/sub-sort.vue'
 import { ref } from 'vue'
 
 export default {
   name: 'SubCategory',
   components: {
     SubBread,
-    SubFilter
+    SubFilter,
+    SubSort
   },
   setup () {
     const isAllChecked = ref(true)
@@ -31,5 +36,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+.goods-list{
+  background: #fff;
+  padding: 0 25px;
+  margin-top: 25px;
+}
 </style>
