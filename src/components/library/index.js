@@ -7,40 +7,66 @@
  * Vue3 全局注册组件
  * app.component('组件名', 组件)
  */
-
 // 导入需要的类
-import WeiweiSkeleton from './weiwei-skeleton'
-// 导入轮播图组件
-import WeiweiCarousel from './weiwei-carousel.vue'
-// 导入查看更多组件
-import WeiweiMore from './weiwei-more.vue'
-// 导入面包屑组件
-import WeiweiBread from './weiwei-bread.vue'
-// 导入面包屑第二级组件
-import WeiweiBreadItem from './weiwei-bread-item.vue'
-// 导入复选框组件
-import WeiweiCheckbox from './weiwei-checkbox.vue'
-// 导入默认图片
+// import WeiweiSkeleton from './weiwei-skeleton'
+// // 导入轮播图组件
+// import WeiweiCarousel from './weiwei-carousel.vue'
+// // 导入查看更多组件
+// import WeiweiMore from './weiwei-more.vue'
+// // 导入面包屑组件
+// import WeiweiBread from './weiwei-bread.vue'
+// // 导入面包屑第二级组件
+// import WeiweiBreadItem from './weiwei-bread-item.vue'
+// // 导入复选框组件
+// import WeiweiCheckbox from './weiwei-checkbox.vue'
+// // 导入记载更多组件
+// import WeiweiInfiniteLoading from './weiwei-infinite-loading'
+// // 导入默认图片
 import defaultImg from '@/assets/images/200.png'
 
 // 导出一个函数
+// export default {
+//   // install写法以后是提供给app.use安装组件库用的
+//   install (app) {
+//     // 在app上进行扩展，app提供component，di'rective 函数
+//     // 如果要挂载原型 app.config.globalProperties方式
+//     // 注册骨架屏组件
+//     app.component(WeiweiSkeleton.name, WeiweiSkeleton)
+//     // 注册轮播图组件
+//     app.component(WeiweiCarousel.name, WeiweiCarousel)
+//     // 注册查看更多组件
+//     app.component(WeiweiMore.name, WeiweiMore)
+//     // 注册面包屑组件
+//     app.component(WeiweiBread.name, WeiweiBread)
+//     // 注册面包屑二级组件
+//     app.component(WeiweiBreadItem.name, WeiweiBreadItem)
+//     // 注册复选框组件
+//     app.component(WeiweiCheckbox.name, WeiweiCheckbox)
+//     // 注册加载更多组件
+//     app.component(WeiweiInfiniteLoading.name, WeiweiInfiniteLoading)
+
+//     // 定义指令
+//     defineDirective(app)
+//   }
+// }
+
+// 导入library文件夹下的所有组件
+// 批量导入需要使用一个函数 require.context(dir,deep,matching)
+// 参数：1. 目录  2. 是否加载子目录  3. 加载的正则匹配
+const importFn = require.context('./', false, /\.vue$/)
+// 匹配到的文件名数组
+// console.log('查看匹配到的文件名数组', importFn.keys())
 export default {
-  // install写法以后是提供给app.use安装组件库用的
   install (app) {
-    // 在app上进行扩展，app提供component，di'rective 函数
-    // 如果要挂载原型 app.config.globalProperties方式
-    // 注册骨架屏组件
-    app.component(WeiweiSkeleton.name, WeiweiSkeleton)
-    // 注册轮播图组件
-    app.component(WeiweiCarousel.name, WeiweiCarousel)
-    // 注册查看更多组件
-    app.component(WeiweiMore.name, WeiweiMore)
-    // 注册面包屑组件
-    app.component(WeiweiBread.name, WeiweiBread)
-    // 注册面包屑二级组件
-    app.component(WeiweiBreadItem.name, WeiweiBreadItem)
-    // 注册复选框组件
-    app.component(WeiweiCheckbox.name, WeiweiCheckbox)
+    // 批量注册全局组件
+    // 遍历文件名数组
+    importFn.keys().forEach(item => {
+      // 导入函数根据文件名，导入文件内容
+      const component = importFn(item).default
+      // console.log(component)
+      // 根据导入的组件文件，实现自动全局注册
+      app.component(component.name, component)
+    })
 
     // 定义指令
     defineDirective(app)
