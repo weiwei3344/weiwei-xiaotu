@@ -12,8 +12,8 @@
       </a>
     </div>
     <div class="check">
-      <WeiweiCheckbox v-model="sortParams.inventory">仅显示有货商品</WeiweiCheckbox>
-      <WeiweiCheckbox v-model="sortParams.onlyDiscount">仅显示特惠商品</WeiweiCheckbox>
+      <WeiweiCheckbox @change="changeCheck" v-model="sortParams.inventory">仅显示有货商品</WeiweiCheckbox>
+      <WeiweiCheckbox @change="changeCheck" v-model="sortParams.onlyDiscount">仅显示特惠商品</WeiweiCheckbox>
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
   // 完成切换各种排序时候的交互效果
   name: 'SubSort',
 
-  setup () {
+  setup (prop, { emit }) {
   // 实现交互的数据要和后台保持一致
   // 1. 明确交互数据
   /**
@@ -58,12 +58,21 @@ export default {
         sortParams.sortField = sortField
         sortParams.sortMethod = null
       }
+
+      // 触发sort-change时间
+      emit('sort-change', sortParams)
+    }
+
+    const changeCheck = () => {
+      // 触发sort-changes事件
+      emit('sort-change', sortParams)
     }
 
     // 3. 提供给模板使用
     return {
       sortParams,
-      changeSort
+      changeSort,
+      changeCheck
     }
   }
 }

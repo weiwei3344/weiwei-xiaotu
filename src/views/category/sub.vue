@@ -7,7 +7,7 @@
 
   <!-- 商品面板 ====>(排序组件 + 商品列表) -->
   <div class="goods-list">
-    <SubSort />
+    <SubSort @sort-change="sortChange"/>
     <ul>
       <li v-for="item in goodsList" :key="item.id">
         <GoodItem :goods="item" />
@@ -82,11 +82,24 @@ export default {
         finished.value = false
       }
     })
+
+    // 更改排序组件的排序数据，需要重新请求数据
+    const sortChange = (sortParams) => {
+      finished.value = false
+      // 合并参数的时候要注意保留之前的参数
+      reqParams = { ...reqParams, ...sortParams }
+      reqParams.page = 1
+      goodsList.value = []
+    }
+
+    // 更改筛选组件的筛选数据，需要重新请求数据
+
     return {
       getData,
       loading,
       finished,
-      goodsList
+      goodsList,
+      sortChange
     }
   }
 }
