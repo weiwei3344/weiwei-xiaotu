@@ -1,15 +1,20 @@
 <template>
-  <div class='xtx-goods-page'>
+  <div class='xtx-goods-page' v-if="goods">
     <div class="container">
       <!-- 面包屑 -->
       <WeiweiBread>
         <WeiweiBreadItem to="/">首页</WeiweiBreadItem>
-        <WeiweiBreadItem v-if="goods" :to="`/category/${goods.categories[1].id}`">{{goods.categories[1].name}}</WeiweiBreadItem>
-        <WeiweiBreadItem v-if="goods" :to="`/category/sub/${goods.categories[0].id}`">{{goods.categories[0].name}}</WeiweiBreadItem>
-        <WeiweiBreadItem v-if="goods">{{goods.name}}</WeiweiBreadItem>
+        <WeiweiBreadItem :to="`/category/${goods.categories[1].id}`">{{goods.categories[1].name}}</WeiweiBreadItem>
+        <WeiweiBreadItem :to="`/category/sub/${goods.categories[0].id}`">{{goods.categories[0].name}}</WeiweiBreadItem>
+        <WeiweiBreadItem >{{goods.name}}</WeiweiBreadItem>
       </WeiweiBread>
       <!-- 商品信息 -->
-      <div class="goods-info"></div>
+      <div class="goods-info">
+        <div class="media">
+          <GoodsImage :images="goods.mainPictures"/>
+        </div>
+        <div class="spec"></div>
+      </div>
       <!-- 商品推荐 -->
       <GoodsRelevant />
       <!-- 商品详情 -->
@@ -30,13 +35,15 @@
 <script>
 import { ref } from '@vue/reactivity'
 import GoodsRelevant from './components/goods-relevant'
+import GoodsImage from './components/goods-image.vue'
 import { useRoute } from 'vue-router'
 import { findGoods } from '@/api/product'
 import { nextTick, watch } from '@vue/runtime-core'
 export default {
   name: 'WeiweiGoodsPage',
   components: {
-    GoodsRelevant
+    GoodsRelevant,
+    GoodsImage
   },
 
   setup () {
@@ -76,6 +83,16 @@ const useGoods = () => {
 .goods-info {
   min-height: 600px;
   background: #fff;
+  display: flex;
+  .media {
+    width: 580px;
+    height: 600px;
+    padding: 30px 50px;
+  }
+  .spec {
+    flex: 1;
+    padding: 30px 30px 30px 0;
+  }
 }
 .goods-footer {
   display: flex;
