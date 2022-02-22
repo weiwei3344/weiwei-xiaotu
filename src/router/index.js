@@ -7,6 +7,8 @@ const HomePage = () => import('@/views/home')
 const TopCategory = () => import('@/views/category/index')
 // 引入二级分类子目录、
 const SubCategory = () => import('@/views/category/sub.vue')
+// 引入商品详情组件
+const Goods = () => import('@/views/goods/index')
 
 // vue2.0 new VueRouter({}) 创建路由实例
 // vue3.0 createRouter({}) 创建路由实例
@@ -31,6 +33,12 @@ const routes = [
         path: '/category/sub/:id',
         component: SubCategory
 
+      },
+
+      // 商品详情目录
+      {
+        path: '/product/:id',
+        component: Goods
       }
     ]
   }
