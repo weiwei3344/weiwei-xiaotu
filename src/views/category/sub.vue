@@ -3,7 +3,7 @@
   <SubBread />
 
   <!-- 筛选区 -->
-  <SubFilter />
+  <SubFilter @filter-change="filterChange" />
 
   <!-- 商品面板 ====>(排序组件 + 商品列表) -->
   <div class="goods-list">
@@ -93,13 +93,21 @@ export default {
     }
 
     // 更改筛选组件的筛选数据，需要重新请求数据
+    const filterChange = (filterProps) => {
+      finished.value = false
+      // 合并参数，保留之前参数
+      reqParams = { ...reqParams, ...filterProps }
+      reqParams.page = 1
+      goodsList.value = []
+    }
 
     return {
       getData,
       loading,
       finished,
       goodsList,
-      sortChange
+      sortChange,
+      filterChange
     }
   }
 }
