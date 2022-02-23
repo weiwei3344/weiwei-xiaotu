@@ -12,8 +12,11 @@
       <div class="goods-info">
         <div class="media">
           <GoodsImage :images="goods.mainPictures"/>
+          <GoodsSales />
         </div>
-        <div class="spec"></div>
+        <div class="spec">
+          <GoodsName :goods="goods" />
+        </div>
       </div>
       <!-- 商品推荐 -->
       <GoodsRelevant />
@@ -36,6 +39,8 @@
 import { ref } from '@vue/reactivity'
 import GoodsRelevant from './components/goods-relevant'
 import GoodsImage from './components/goods-image.vue'
+import GoodsSales from './components/goods-sales.vue'
+import GoodsName from './components/goods-name.vue'
 import { useRoute } from 'vue-router'
 import { findGoods } from '@/api/product'
 import { nextTick, watch } from '@vue/runtime-core'
@@ -43,7 +48,9 @@ export default {
   name: 'WeiweiGoodsPage',
   components: {
     GoodsRelevant,
-    GoodsImage
+    GoodsImage,
+    GoodsSales,
+    GoodsName
   },
 
   setup () {

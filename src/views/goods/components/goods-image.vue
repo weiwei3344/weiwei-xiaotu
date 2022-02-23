@@ -81,7 +81,7 @@ const usePreviewImg = () => {
     else if (elementY.value > 300) position.y = 200
     else position.y = elementY.value - 100
 
-    console.log(position.x, position.y)
+    // console.log(position.x, position.y)
     // 结合样式负值
     layerPosition.left = position.x + 'px'
     layerPosition.top = position.y + 'px'
