@@ -6,25 +6,31 @@
       <i class="iconfont icon-angle-down"></i>
     </div>
     <div class="option" v-if="visitable">
-      <span class="ellipsis" v-for="i in 24" :key="i">北京市</span>
+      <div v-if="loading" class="loading"></div>
+      <template v-else>
+        <span class="ellipsis" v-for="item in currList" :key="item.code">{{item.name}}</span>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
+import { computed, ref } from '@vue/reactivity'
 import { onClickOutside } from '@vueuse/core'
+import axios from 'axios'
 export default {
   name: 'WeiweiCity',
 
   setup () {
     // 控制展开收起函数
-    const { visitable, taggle, target } = control()
+    const { visitable, taggle, target, loading, currList } = control()
 
     return {
       visitable,
       taggle,
-      target
+      target,
+      loading,
+      currList
     }
   }
 }
@@ -37,10 +43,19 @@ const control = () => {
   const visitable = ref(false)
   // 设置监听dom，是否直接收起
   const target = ref(null)
+  // 创建一个加载中的数据
+  const loading = ref(false)
+  // 创建一个城市数据
+  const allCityData = ref([])
 
   // 展开状态
   const open = () => {
     visitable.value = true
+    loading.value = true
+    getCityData().then(data => {
+      allCityData.value = data
+      loading.value = false
+    })
   }
 
   // 关闭状态
@@ -60,12 +75,48 @@ const control = () => {
     // console.log(123)
   })
 
+  // 计算属性来实现省市区的显示
+  const currList = computed(() => {
+    // 默认省一级
+    const list = allCityData.value
+    // 可能市一级
+    // 可能县地区一级
+    return list
+  })
+
   return {
     visitable,
     taggle,
-    target
+    target,
+    loading,
+    currList
   }
 }
+
+/**
+ * 获取省市区的数据函数
+ */
+const getCityData = () => {
+  // 1. 数据请求地址： https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/area.json
+  // 2. 当本地有缓存的时候，直接拿取
+  // 3. 本地没有数据，则从数据请求地址加载数据，缓存在window上
+  // 4. 返回Promise在then上获取数据，因为这里操作可能是异步的和同步操作
+  return new Promise((resolve, reject) => {
+    // 5. 约定，数据存储在window上的cityData字段上
+    if (window.cityData) {
+      resolve(window.cityData)
+    } else {
+      const url = 'https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/area.json'
+      // 直接调用axios来请求数据，因为这个数据不是存在同一个地方
+      axios.get(url, { timeout: 5000 }).then(data => {
+        // console.log(data.data)
+        window.cityData = data.data
+        resolve(data.data)
+      })
+    }
+  })
+}
+
 </script>
 
 <style scoped lang="less">
@@ -115,6 +166,11 @@ const control = () => {
       &:hover {
         background: #f5f5f5;
       }
+    }
+    .loading {
+      height: 290px;
+      width: 100%;
+      background: url(../../assets/images/loading.gif) no-repeat center;
     }
   }
 }
