@@ -1,36 +1,63 @@
 <template>
   <div class="xtx-city" ref="target">
     <div class="select" @click="taggle()" :class="{active: visitable}">
-      <span class="placeholder">请选择配送地址</span>
-      <span class="value"></span>
+      <span v-if="!fullLocation" class="placeholder">请选择配送地址</span>
+      <span v-else class="value">{{fullLocation}}</span>
       <i class="iconfont icon-angle-down"></i>
     </div>
     <div class="option" v-if="visitable">
       <div v-if="loading" class="loading"></div>
       <template v-else>
-        <span class="ellipsis" v-for="item in currList" :key="item.code">{{item.name}}</span>
+        <span class="ellipsis" @click="changeItem(item)" v-for="item in currList" :key="item.code">{{item.name}}</span>
       </template>
     </div>
   </div>
 </template>
 
 <script>
-import { computed, ref } from '@vue/reactivity'
+import { computed, reactive, ref } from '@vue/reactivity'
 import { onClickOutside } from '@vueuse/core'
 import axios from 'axios'
 export default {
   name: 'WeiweiCity',
-
-  setup () {
+  props: {
+    fullLocation: {
+      type: String,
+      default: ''
+    }
+  },
+  setup (props, { emit }) {
     // 控制展开收起函数
-    const { visitable, taggle, target, loading, currList } = control()
+    const { visitable, taggle, target, loading, currList, close } = control()
+
+    const changeItem = (item) => {
+      if (item.level === 0) {
+        // 省
+        changeResult.proviceCode = item.code
+        changeResult.proviceName = item.name
+      } else if (item.level === 1) {
+        // 市
+        changeResult.cityCode = item.code
+        changeResult.cityName = item.name
+      } else if (item.level === 2) {
+        // 县地区
+        changeResult.countyCode = item.code
+        changeResult.countyName = item.name
+        // 拼接的完整路径
+        changeResult.fullLocation = `${changeResult.proviceName} ${changeResult.cityName} ${changeResult.countyName}`
+        // 到这里以及选完了，需要结束对话框，并且通知父组件
+        close()
+        emit('change', changeResult)
+      }
+    }
 
     return {
       visitable,
       taggle,
       target,
       loading,
-      currList
+      currList,
+      changeItem
     }
   }
 }
@@ -56,6 +83,9 @@ const control = () => {
       allCityData.value = data
       loading.value = false
     })
+    for (const key in changeResult) {
+      changeResult[key] = ''
+    }
   }
 
   // 关闭状态
@@ -78,9 +108,15 @@ const control = () => {
   // 计算属性来实现省市区的显示
   const currList = computed(() => {
     // 默认省一级
-    const list = allCityData.value
+    let list = allCityData.value
     // 可能市一级
+    if (changeResult.proviceCode && changeResult.proviceName) {
+      list = list.find(p => p.code === changeResult.proviceCode).areaList
+    }
     // 可能县地区一级
+    if (changeResult.cityCode && changeResult.cityName) {
+      list = list.find(c => c.code === changeResult.cityCode).areaList
+    }
     return list
   })
 
@@ -89,7 +125,8 @@ const control = () => {
     taggle,
     target,
     loading,
-    currList
+    currList,
+    close
   }
 }
 
@@ -116,6 +153,24 @@ const getCityData = () => {
     }
   })
 }
+
+/**
+ * 定义选择的省市区数据
+ * provice: 省；city：市；county：县地区
+ */
+const changeResult = reactive({
+  proviceCode: '',
+  proviceName: '',
+  cityCode: '',
+  cityName: '',
+  countyCode: '',
+  countyName: '',
+  fullLocation: ''
+})
+
+/**
+ * 点击选择的省后的事件
+ */
 
 </script>
 

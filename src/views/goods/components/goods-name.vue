@@ -12,7 +12,7 @@
     </dl>
     <dl>
       <dt>配送</dt>
-      <dd>至 <WeiweiCity /></dd>
+      <dd>至 <WeiweiCity @change="changeCity" :fullLocation="fullLocation" /></dd>
     </dl>
     <dl>
       <dt>服务</dt>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { ref } from '@vue/reactivity'
 export default {
   name: 'GoodName',
   props: {
@@ -34,8 +35,54 @@ export default {
       type: Object,
       default: () => ({})
     }
+  },
+  setup (props) {
+    const { fullLocation, provinceCode, cityCode, countyCode } = getCityCode(props)
+
+    const changeCity = (result) => {
+      provinceCode.value = result.provinceCode
+      cityCode.value = result.cityCode
+      countyCode.value = result.countyCode
+      fullLocation.value = result.fullLocation
+    }
+
+    return {
+      fullLocation,
+      changeCity
+    }
   }
 }
+
+const getCityCode = (props) => {
+  // 默认没有地址信息（没有默认信息）
+  // 省级城市代码
+  const provinceCode = ref('110000')
+  // 市级城市代码
+  const cityCode = ref('119900')
+  // 县地区级代码
+  const countyCode = ref('110101')
+  // 组合在一起的地址名字
+  const fullLocation = ref('北京市 市辖区 东城区')
+
+  // 默认有地址信息（已登录）
+  if (props.goods.userAddress) {
+    const defaultAddress = props.goods.userAddress.find(item => item.isDefualt === 1)
+    if (defaultAddress) {
+      provinceCode.value = defaultAddress.provinceCode
+      cityCode.value = defaultAddress.cityCode
+      countyCode.value = defaultAddress.countyCode
+      fullLocation.value = defaultAddress.fullLocation
+    }
+  }
+
+  return {
+    fullLocation,
+    provinceCode,
+    cityCode,
+    countyCode
+  }
+}
+
 </script>
 
 <style lang="less" scoped>
